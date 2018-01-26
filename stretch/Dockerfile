@@ -22,7 +22,7 @@ COPY ./overlay-${ARCH}/etc/apt/ /etc/apt/
 
 
 # Adding and calling builder-enter
-COPY ./overlay-image-tools/usr/local/sbin/scw-builder-enter /usr/local/sbin/
+COPY ./overlay-base/usr/local/sbin/scw-builder-enter /usr/local/sbin/
 RUN /bin/sh -xe /usr/local/sbin/scw-builder-enter
 
 
@@ -95,7 +95,7 @@ RUN rm -f /etc/motd && ln -s /var/run/motd /etc/motd
 
 
 # Patch rootfs
-COPY ./overlay/ ./overlay-image-tools/ ./overlay-${ARCH}/ /
+COPY ./overlay/ ./overlay-base/ ./overlay-${ARCH}/ /
 
 
 # Configure locales
@@ -109,6 +109,7 @@ RUN systemctl enable \
 	scw-generate-ssh-keys \
 	scw-gen-machine-id \
 	scw-kernel-check \
+  scw-signal-booted \
  && systemctl disable \
 	systemd-modules-load.service \
 	systemd-update-utmp-runlevel \
