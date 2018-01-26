@@ -1,0 +1,9 @@
+IMAGE_NAME = debian
+IMAGE_VERSION = wheezy
+IMAGE_VERSION_ALIASES =	7.9 7
+IMAGE_TITLE = Debian Wheezy
+IMAGE_DESCRIPTION = Debian Wheezy
+IMAGE_SOURCE_URL = https://github.com/scaleway/image-debian
+IMAGE_VENDOR_URL = https://www.debian.org
+IMAGE_BOOTSCRIPT = mainline 4.9
+IMAGE_BASE_FLAVORS = docker-based common sysvinit feature-motd
