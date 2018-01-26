@@ -1,0 +1,9 @@
+IMAGE_NAME = debian
+IMAGE_VERSION = jessie
+IMAGE_VERSION_ALIASES =	8.2 8 latest
+IMAGE_TITLE = Debian Jessie
+IMAGE_DESCRIPTION = Debian Jessie (8.2 latest)
+IMAGE_SOURCE_URL = https://github.com/scaleway/image-debian
+IMAGE_VENDOR_URL = https://www.debian.org
+IMAGE_BOOTSCRIPT = mainline 4.9
+IMAGE_BASE_FLAVORS = common docker-based systemd feature-motd
