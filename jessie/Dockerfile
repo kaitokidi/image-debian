@@ -1,13 +1,6 @@
 ## -*- docker-image-name: "scaleway/debian:jessie" -*-
-FROM multiarch/debian-debootstrap:amd64-jessie
-# following 'FROM' lines are used dynamically thanks do the image-builder
-# which dynamically update the Dockerfile if needed.
-#FROM multiarch/debian-debootstrap:armhf-jessie    # arch=armv7l
-#FROM multiarch/debian-debootstrap:arm64-jessie    # arch=arm64
-#FROM multiarch/debian-debootstrap:i386-jessie     # arch=i386
-#FROM multiarch/debian-debootstrap:powerpc-jessie  # arch=powerpc
-#FROM multiarch/debian-debootstrap:armel-jessie    # arch=armel
-#FROM multiarch/debian-debootstrap:mips-jessie     # arch=mips
+ARG MULTIARCH_ARCH
+FROM multiarch/debian-debootstrap:${MULTIARCH_ARCH}-jessie
 
 
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)

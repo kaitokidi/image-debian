@@ -1,11 +1,6 @@
 ## -*- docker-image-name: "scaleway/debian:sid" -*-
-FROM multiarch/debian-debootstrap:amd64-sid
-# following 'FROM' lines are used dynamically thanks do the image-builder
-# which dynamically update the Dockerfile if needed.
-#FROM multiarch/debian-debootstrap:armhf-sid    # arch=armv7l
-#FROM multiarch/debian-debootstrap:arm64-sid    # arch=arm64
-#FROM multiarch/debian-debootstrap:i386-sid     # arch=i386
-#FROM multiarch/debian-debootstrap:armel-sid    # arch=armel
+ARG MULTIARCH_ARCH
+FROM multiarch/debian-debootstrap:${MULTIARCH_ARCH}-sid
 
 
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)

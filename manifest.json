@@ -1,5 +1,6 @@
 {
-    "jessie": {
+  "images": {
+      "jessie": {
         "directory": "jessie",
         "architectures": [
             "arm", "arm64", "x86_64"
@@ -27,4 +28,5 @@
         ],
         "marketplace-id": "895451a5-d298-4cdd-a036-d50f288572d4"
     }
+  }
 }

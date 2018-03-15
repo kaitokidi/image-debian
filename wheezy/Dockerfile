@@ -1,13 +1,6 @@
 ## -*- docker-image-name: "scaleway/debian:wheezy" -*-
-FROM multiarch/debian-debootstrap:amd64-wheezy
-# following 'FROM' lines are used dynamically thanks do the image-builder
-# which dynamically update the Dockerfile if needed.
-#FROM multiarch/debian-debootstrap:armhf-wheezy    # arch=armv7l
-#FROM multiarch/debian-debootstrap:arm64-wheezy    # arch=arm64
-#FROM multiarch/debian-debootstrap:i386-wheezy     # arch=i386
-#FROM multiarch/debian-debootstrap:powerpc-wheezy  # arch=powerpc
-#FROM multiarch/debian-debootstrap:armel-wheezy    # arch=armel
-#FROM multiarch/debian-debootstrap:mips-wheezy     # arch=mips
+ARG MULTIARCH_ARCH
+FROM multiarch/debian-debootstrap:${MULTIARCH_ARCH}-wheezy
 
 
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)

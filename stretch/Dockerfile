@@ -1,12 +1,6 @@
 ## -*- docker-image-name: "scaleway/debian:stretch" -*-
-FROM multiarch/debian-debootstrap:amd64-stretch
-# following 'FROM' lines are used dynamically thanks do the image-builder
-# which dynamically update the Dockerfile if needed.
-#FROM multiarch/debian-debootstrap:armhf-stretch    # arch=armv7l
-#FROM multiarch/debian-debootstrap:arm64-stretch    # arch=arm64
-#FROM multiarch/debian-debootstrap:i386-stretch     # arch=i386
-#FROM multiarch/debian-debootstrap:armel-stretch    # arch=armel
-#FROM multiarch/debian-debootstrap:mips-stretch     # arch=mips
+ARG MULTIARCH_ARCH
+FROM multiarch/debian-debootstrap:${MULTIARCH_ARCH}-stretch
 
 
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
