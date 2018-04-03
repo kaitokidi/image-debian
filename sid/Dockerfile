@@ -79,7 +79,7 @@ RUN apt-get -q update && \
 	vim \
 	wget \
 	whiptail \
-  grub-efi \
+  grub-efi-$(dpkg --print-architecture | sed 's/armhf/arm/') \
     && apt-get clean
 
 

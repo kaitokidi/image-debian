@@ -75,7 +75,7 @@ RUN apt-get -q update && \
 	uuid-runtime \
 	vim \
 	wget \
-  grub-efi \
+  grub-efi-$(dpkg --print-architecture | sed 's/armhf/arm/') \
 	whiptail \
     unattended-upgrades \
     && apt-get clean
