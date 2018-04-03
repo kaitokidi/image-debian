@@ -103,6 +103,7 @@ RUN systemctl enable \
 	scw-generate-ssh-keys \
 #	scw-kernel-check \
   scw-signal-booted \
+  scw-generate-net-config \
  && systemctl disable \
 	systemd-modules-load.service \
 	systemd-update-utmp-runlevel \
