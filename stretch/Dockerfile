@@ -75,6 +75,7 @@ RUN apt-get -q update && \
 	uuid-runtime \
 	vim \
 	wget \
+  grub-efi \
 	whiptail \
     unattended-upgrades \
     && apt-get clean
@@ -101,7 +102,6 @@ RUN systemctl enable \
 	scw-fetch-ssh-keys \
 	scw-sync-kernel-modules \
 	scw-generate-ssh-keys \
-#	scw-kernel-check \
   scw-signal-booted \
   scw-generate-net-config \
  && systemctl disable \

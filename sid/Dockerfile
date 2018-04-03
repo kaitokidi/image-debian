@@ -79,6 +79,7 @@ RUN apt-get -q update && \
 	vim \
 	wget \
 	whiptail \
+  grub-efi \
     && apt-get clean
 
 
@@ -104,8 +105,6 @@ RUN systemctl enable \
 	scw-sync-kernel-modules \
   scw-generate-net-config \
   scw-generate-ssh-keys \
-#scw-gen-machine-id \
-#scw-kernel-check \
   scw-signal-booted \
  && systemctl disable \
 	systemd-modules-load.service \
