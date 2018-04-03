@@ -101,8 +101,7 @@ RUN systemctl enable \
 	scw-fetch-ssh-keys \
 	scw-sync-kernel-modules \
 	scw-generate-ssh-keys \
-	scw-gen-machine-id \
-	scw-kernel-check \
+#	scw-kernel-check \
   scw-signal-booted \
  && systemctl disable \
 	systemd-modules-load.service \
