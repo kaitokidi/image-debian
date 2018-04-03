@@ -100,13 +100,8 @@ RUN locale-gen
 
 
 # Configure Systemd
-RUN systemctl enable \
-	scw-fetch-ssh-keys \
-	scw-sync-kernel-modules \
-  scw-generate-net-config \
-  scw-generate-ssh-keys \
-  scw-signal-booted \
- && systemctl disable \
+RUN systemctl preset --preset-mode=full $(cat /etc/systemd/system-preset/scw*.preset | cut -d' ' -f2 | tr '\n' ' ')
+RUN  systemctl disable \
 	systemd-modules-load.service \
 	systemd-update-utmp-runlevel \
 	proc-sys-fs-binfmt_misc.automount \
