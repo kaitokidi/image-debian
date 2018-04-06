@@ -113,12 +113,6 @@ RUN rm -f /sbin/init \
  && ln -sf ../lib/systemd/systemd /sbin/init
 
 
-# Enable serial console by default
-RUN systemctl enable getty@ttyS0.service
-RUN systemctl enable getty@ttyS1.service
-RUN systemctl enable getty@ttyAMA0.service
-
-
 # Fix permissions
 RUN chmod 755 /etc/default
 
