@@ -47,7 +47,7 @@ RUN apt-get -q update && \
 	kmod \
 	less \
 	libnss-myhostname \
-	linux-image-"$(dpkg --print-architecture)" \
+	linux-image-"$(dpkg --print-architecture | sed 's/armhf/armmp/')" \
 	locales \
 	locate \
 	lsb-release \
