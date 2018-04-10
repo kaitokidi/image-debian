@@ -37,6 +37,7 @@ RUN apt-get -q update && \
 	fio \
 	haveged \
 	htop \
+	ifupdown \
 	ioping \
 	iotop \
 	iperf \
@@ -45,6 +46,7 @@ RUN apt-get -q update && \
 	isc-dhcp-client \
 	less \
 	libnss-myhostname \
+	linux-image-"$(dpkg --print-architecture)" \
 	locales \
 	locate \
 	lsb-release \
@@ -76,7 +78,7 @@ RUN apt-get -q update && \
 	vim \
 	wget \
 	whiptail \
-  grub-efi-$(dpkg --print-architecture | sed 's/armhf/arm/') \
+	grub-efi-$(dpkg --print-architecture | sed 's/armhf/arm/') \
     unattended-upgrades \
     && apt-get clean
 
@@ -106,6 +108,7 @@ RUN systemctl disable \
 	proc-sys-fs-binfmt_misc.automount \
 	kmod-static-nodes.service
 
+RUN ln -s /etc/systemd/system/networking.service /etc/systemd/system/multi-user.target.wants/networking.service
 
 RUN rm -f /sbin/init \
  && ln -sf ../lib/systemd/systemd /sbin/init

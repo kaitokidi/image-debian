@@ -37,6 +37,7 @@ RUN apt-get -q update && \
 	fio \
 	haveged \
 	htop \
+	ifupdown \
 	ioping \
 	iotop \
 	iperf \
@@ -46,6 +47,7 @@ RUN apt-get -q update && \
 	kmod \
 	less \
 	libnss-myhostname \
+	linux-image-"$(dpkg --print-architecture)" \
 	locales \
 	locate \
 	lsb-release \
@@ -75,7 +77,7 @@ RUN apt-get -q update && \
 	uuid-runtime \
 	vim \
 	wget \
-  grub-efi-$(dpkg --print-architecture | sed 's/armhf/arm/') \
+	grub-efi-$(dpkg --print-architecture | sed 's/armhf/arm/') \
 	whiptail \
     unattended-upgrades \
     && apt-get clean
@@ -104,16 +106,11 @@ RUN systemctl disable \
 	systemd-update-utmp-runlevel \
 	proc-sys-fs-binfmt_misc.automount \
 	kmod-static-nodes.service
+RUN systemctl enable networking.service
 
 
 RUN rm -f /sbin/init \
  && ln -sf ../lib/systemd/systemd /sbin/init
-
-
-# Enable serial console by default
-RUN systemctl enable getty@ttyS0.service
-RUN systemctl enable getty@ttyS1.service
-RUN systemctl enable getty@ttyAMA0.service
 
 
 # Fix permissions
