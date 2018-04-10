@@ -1,11 +1,6 @@
 ## -*- docker-image-name: "scaleway/debian:sid" -*-
-FROM multiarch/debian-debootstrap:amd64-sid
-# following 'FROM' lines are used dynamically thanks do the image-builder
-# which dynamically update the Dockerfile if needed.
-#FROM multiarch/debian-debootstrap:armhf-sid    # arch=armv7l
-#FROM multiarch/debian-debootstrap:arm64-sid    # arch=arm64
-#FROM multiarch/debian-debootstrap:i386-sid     # arch=i386
-#FROM multiarch/debian-debootstrap:armel-sid    # arch=armel
+ARG MULTIARCH_ARCH
+FROM multiarch/debian-debootstrap:${MULTIARCH_ARCH}-sid
 
 
 MAINTAINER Scaleway <opensource@scaleway.com> (@scaleway)
@@ -21,7 +16,7 @@ COPY ./overlay-${ARCH}/etc/apt/ /etc/apt/
 
 
 # Adding and calling builder-enter
-COPY ./overlay-image-tools/usr/local/sbin/scw-builder-enter /usr/local/sbin/
+COPY ./overlay-base/usr/local/sbin/scw-builder-enter /usr/local/sbin/
 RUN /bin/sh -xe /usr/local/sbin/scw-builder-enter
 
 
@@ -84,6 +79,7 @@ RUN apt-get -q update && \
 	vim \
 	wget \
 	whiptail \
+  grub-efi-$(dpkg --print-architecture | sed 's/armhf/arm/') \
     && apt-get clean
 
 
@@ -96,7 +92,7 @@ RUN rm -f /etc/motd && ln -s /var/run/motd /etc/motd
 
 
 # Patch rootfs
-COPY ./overlay/ ./overlay-image-tools/ ./overlay-${ARCH}/ /
+COPY ./overlay/ ./overlay-base/ ./overlay-${ARCH}/ /
 
 
 # Configure locales
@@ -104,13 +100,8 @@ RUN locale-gen
 
 
 # Configure Systemd
-RUN systemctl enable \
-	scw-fetch-ssh-keys \
-	scw-sync-kernel-modules \
-	scw-generate-ssh-keys \
-	scw-gen-machine-id \
-	scw-kernel-check \
- && systemctl disable \
+RUN systemctl preset --preset-mode=full $(cat /etc/systemd/system-preset/scw*.preset | cut -d' ' -f2 | tr '\n' ' ')
+RUN  systemctl disable \
 	systemd-modules-load.service \
 	systemd-update-utmp-runlevel \
 	proc-sys-fs-binfmt_misc.automount \

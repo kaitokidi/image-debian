@@ -1,0 +1,2 @@
+enable scw-generate-net-config
+enable scw-generate-ssh-keys
