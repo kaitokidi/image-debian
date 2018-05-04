@@ -27,6 +27,16 @@
             "arm", "x86_64"
         ],
         "marketplace-id": "895451a5-d298-4cdd-a036-d50f288572d4"
+    },
+    "stretch-25g": {
+        "directory": "stretch",
+        "architectures": [
+            "x86_64"
+        ],
+        "options": {
+            "disk-size": "25G"
+        },
+        "marketplace-id": "cea07784-826f-44a2-b4bf-2b836ddb710c"
     }
   }
 }
