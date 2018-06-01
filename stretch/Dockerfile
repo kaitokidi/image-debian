@@ -12,7 +12,7 @@ ENV DEBIAN_FRONTEND=noninteractive SCW_BASE_IMAGE=scaleway/debian:stretch
 
 # Configure aptitude
 # Note that, `${ARCH}` is set in the multiarch/debian-debootstrap image
-COPY ./overlay-${ARCH}/etc/apt/ /etc/apt/
+COPY ./overlay/etc/apt/ ./overlay-${ARCH}/etc/apt/ /etc/apt/
 
 
 # Adding and calling builder-enter
