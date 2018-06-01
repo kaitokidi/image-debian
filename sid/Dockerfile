@@ -12,7 +12,7 @@ ENV DEBIAN_FRONTEND=noninteractive SCW_BASE_IMAGE=scaleway/debian:sid
 
 # Configure aptitude
 # Note that, `${ARCH}` is set in the multiarch/debian-debootstrap image
-COPY ./overlay/etc/apt/ ./overlay-${ARCH}/etc/apt/ /etc/apt/
+COPY ./overlay/etc/apt/ ./overlay-${ARCH}*/etc/apt/ /etc/apt/
 
 
 # Adding and calling builder-enter
@@ -92,7 +92,7 @@ RUN rm -f /etc/motd && ln -s /var/run/motd /etc/motd
 
 
 # Patch rootfs
-COPY ./overlay/ ./overlay-base/ ./overlay-${ARCH}/ /
+COPY ./overlay/ ./overlay-base/ ./overlay-${ARCH}*/ /
 
 
 # Configure locales
