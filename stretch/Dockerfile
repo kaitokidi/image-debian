@@ -12,7 +12,13 @@ ENV DEBIAN_FRONTEND=noninteractive SCW_BASE_IMAGE=scaleway/debian:stretch
 
 # Configure aptitude
 # Note that, `${ARCH}` is set in the multiarch/debian-debootstrap image
+# gnupg needs to be installed before the PPA is added from the overlay/apt
+RUN apt-get update && apt-get -y install gnupg
 COPY ./overlay/etc/apt/ ./overlay-${ARCH}*/etc/apt/ /etc/apt/
+
+# Add Scaleway PPA
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys FEC8C91445F9E441
+RUN apt-get update && apt-get -y install cloud-init
 
 
 # Adding and calling builder-enter
@@ -31,6 +37,7 @@ RUN apt-get -q update && \
 	cron \
 	curl \
 	dbus \
+	dmidecode \
 	dstat \
 	ethstatus \
 	file \
@@ -82,7 +89,6 @@ RUN apt-get -q update && \
     unattended-upgrades \
     && apt-get clean
 
-
 # Default target
 RUN systemctl set-default multi-user
 
@@ -108,6 +114,13 @@ RUN systemctl disable \
 	kmod-static-nodes.service
 RUN systemctl enable networking.service
 
+
+# Disable systemd units that are handled by cloud-init
+RUN cd /etc/systemd/system && for I in $(ls scw* | grep -v root);do systemctl disable $I;done
+
+# Enable root login to stay backward-compatible
+# Otherwise cloud-init disables it
+RUN sed -i 's/disable_root: true/disable_root: false/' /etc/cloud/cloud.cfg
 
 RUN rm -f /sbin/init \
  && ln -sf ../lib/systemd/systemd /sbin/init
