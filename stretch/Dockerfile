@@ -115,9 +115,6 @@ RUN systemctl disable \
 RUN systemctl enable networking.service
 
 
-# Disable systemd units that are handled by cloud-init
-RUN cd /etc/systemd/system && for I in $(ls scw* | grep -v root);do systemctl disable $I;done
-
 # Enable root login to stay backward-compatible
 # Otherwise cloud-init disables it
 RUN sed -i 's/disable_root: true/disable_root: false/' /etc/cloud/cloud.cfg
