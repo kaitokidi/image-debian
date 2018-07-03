@@ -106,7 +106,7 @@ RUN locale-gen
 
 
 # Configure Systemd
-RUN systemctl preset --preset-mode=full $(cat /etc/systemd/system-preset/scw*.preset | cut -d' ' -f2 | tr '\n' ' ')
+RUN systemctl preset --preset-mode=full $(cat /etc/systemd/system-preset/*scw*.preset | cut -d' ' -f2 | tr '\n' ' ')
 RUN systemctl disable \
 	systemd-modules-load.service \
 	systemd-update-utmp-runlevel \
@@ -114,9 +114,6 @@ RUN systemctl disable \
 	kmod-static-nodes.service
 RUN systemctl enable networking.service
 
-
-# Disable systemd units that are handled by cloud-init
-RUN cd /etc/systemd/system && for I in $(ls scw* | grep -v root);do systemctl disable $I;done
 
 # Enable root login to stay backward-compatible
 # Otherwise cloud-init disables it

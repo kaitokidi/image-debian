@@ -101,7 +101,7 @@ RUN locale-gen
 
 
 # Configure Systemd
-RUN systemctl preset --preset-mode=full $(cat /etc/systemd/system-preset/scw*.preset | cut -d' ' -f2 | tr '\n' ' ')
+RUN systemctl preset --preset-mode=full $(cat /etc/systemd/system-preset/*scw*.preset | cut -d' ' -f2 | tr '\n' ' ')
 RUN systemctl disable \
 	systemd-modules-load.service \
 	systemd-update-utmp-runlevel \
