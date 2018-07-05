@@ -89,6 +89,9 @@ RUN apt-get -q update && \
     unattended-upgrades \
     && apt-get clean
 
+# Add debian-specific cloud.cfg
+COPY ./overlay/etc/cloud/cloud.cfg /etc/cloud
+
 # Default target
 RUN systemctl set-default multi-user
 
