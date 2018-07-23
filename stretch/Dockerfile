@@ -89,9 +89,6 @@ RUN apt-get -q update && \
     unattended-upgrades \
     && apt-get clean
 
-# Add debian-specific cloud.cfg
-COPY ./overlay/etc/cloud/cloud.cfg /etc/cloud
-
 # Default target
 RUN systemctl set-default multi-user
 
@@ -117,10 +114,6 @@ RUN systemctl disable \
 	kmod-static-nodes.service
 RUN systemctl enable networking.service
 
-
-# Enable root login to stay backward-compatible
-# Otherwise cloud-init disables it
-RUN sed -i 's/disable_root: true/disable_root: false/' /etc/cloud/cloud.cfg
 
 RUN rm -f /sbin/init \
  && ln -sf ../lib/systemd/systemd /sbin/init
